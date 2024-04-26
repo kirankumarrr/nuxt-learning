@@ -34,7 +34,7 @@ fetchData();
         else
         v-for="user in data"
         :key="user.id"
-        :to="'/apps/' + user.id"
+        :to="'/products/' + user.id"
       >
         <div class="card">
           <img :src="user.avatar" :alt="user.name" width="100" height="100" />
