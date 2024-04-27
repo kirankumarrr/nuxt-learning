@@ -1,6 +1,4 @@
 <script setup>
-import { ref } from "vue";
-
 const { data } = await useFetch("/api/apps", {
   transform: (_apps) => _apps.data,
 });
