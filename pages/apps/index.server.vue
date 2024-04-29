@@ -2,6 +2,8 @@
 const { data } = await useFetch("/api/apps", {
   transform: (_apps) => _apps.data,
 });
+
+console.log("APPS data", data);
 </script>
 
 <template>
@@ -12,10 +14,9 @@ const { data } = await useFetch("/api/apps", {
     </div>
     <h1>Apps</h1>
     <div class="app">
-      <div v-if="!data">Loading</div>
       <router-link
-        else
-        v-for="user in data || []"
+        v-if="!!data"
+        v-for="user in data"
         :key="user.id"
         :to="'/apps/' + user.id"
       >
@@ -26,6 +27,7 @@ const { data } = await useFetch("/api/apps", {
           <p>Created At: {{ user.createdAt }}</p>
         </div>
       </router-link>
+      <div else>Loading</div>
     </div>
   </div>
 </template>

@@ -1,33 +1,13 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-
-import { ref } from "vue";
-
-const data = ref({
-  avatar: "https://placehold.co/600x400/orange/white",
-});
-const error = ref(null);
-
 const route = useRoute();
 
 // When accessing /posts/1, route.params.id will be 1
 console.log(route.params.id);
 
-const fetchData = async () => {
-  try {
-    const response = await fetch(
-      `https://60b0c06a1f26610017fff217.mockapi.io/api/users/products/${route.params.id}`
-    );
-    if (!response.ok) {
-      throw new Error("Failed to fetch data");
-    }
-    data.value = await response.json();
-  } catch (err) {
-    error.value = err.message;
-  }
-};
-
-fetchData();
+const { data } = await useFetch(`/api/products/${route.params.id}`, {
+  transform: (_apps) => _apps.data,
+});
 </script>
 
 <template>
@@ -38,8 +18,8 @@ fetchData();
       <NuxtLink to="/products">Products</NuxtLink>
     </div>
     <div class="app">
-      <h2>App - ID - {{ route.params.id }}</h2>
-      <h2 v-if="!data">App - ID - {{ data }}</h2>
+      <h2>Products - ID - {{ route.params.id }}</h2>
+      <h2 v-if="!data">Products - ID - {{ data }}</h2>
       <div else class="card">
         <img :src="data.avatar" :alt="data.name" width="100" height="100" />
         <h2>{{ data.name }}</h2>

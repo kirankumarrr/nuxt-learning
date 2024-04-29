@@ -1,24 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
-
-const data = ref(null);
-const error = ref(null);
-
-const fetchData = async () => {
-  try {
-    const response = await fetch(
-      "https://60b0c06a1f26610017fff217.mockapi.io/api/users/products"
-    );
-    if (!response.ok) {
-      throw new Error("Failed to fetch data");
-    }
-    data.value = await response.json();
-  } catch (err) {
-    error.value = err.message;
-  }
-};
-
-fetchData();
+const { data } = await useFetch("/api/products", {
+  transform: (_apps) => _apps.data,
+});
 </script>
 
 <template>
