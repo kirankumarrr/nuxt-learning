@@ -1,8 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  experimental: {
-    componentIslands: true,
-  },
   devtools: { enabled: true },
   serverMiddleware: [
     // Add server middleware for handling API routes
@@ -15,8 +12,8 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/': { prerender: true },
-    '/apps': { swr: 3600 },
-    '/apps/**': { swr: 3600 },
+    '/apps': { prerender: true },
+    '/apps/**': { prerender: true },
     '/products': { swr: 3600 },
     '/products/**': { swr: 3600 },
     '/api/*': { cache: { maxAge: 300 } },
